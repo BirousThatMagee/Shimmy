@@ -29,29 +29,25 @@ class GetGud:
     def __init__(self,root):
         self.root = root
         self.root.title("Get Gud") 
-        self.root.geometry("400x300")
+        self.root.geometry("420x250")
         root.config(bg='#3159a3')
         self.genre = ""
         self.first_page()
 
 
     def delete_buttons(self):
-        self.button1.destroy()
-        self.button2.destroy()
-        self.button3.destroy()
-        self.button4.destroy()
-        self.button5.destroy()
-        self.button6.destroy()
-
-    def delete_dropdowns(self):
-        self.delete_dropdowns
+        for widget in self.root.winfo_children():
+            widget.destroy()
+    # def delete_dropdowns(self):
+    #     self.delete_dropdowns
     
     
     
     def first_page(self):
-        label = tk.Label(root, text = "Choose your game category",
+        self.delete_buttons()
+        self.label = tk.Label(root, text = "Choose your game category",
         font = ("Calibri 24"), bg ='#dcecfa', fg = '#7092be' )
-        label.pack(pady =20)
+        self.label.pack(pady =20)
 
         self.button1 = tk.Button(root, text ="FPS", fg = "#99d9ea", command = self.Generate_FPS_tip)
         self.button2 = tk.Button(root, text ="Stealth", fg = "#99d9ea", command = self.Generate_Stealth_Tip)
@@ -68,23 +64,26 @@ class GetGud:
         self.button6.pack()
 
     def second_page(self):
-        
-        self.button7 = tk.Button(root, text ="Generate Tip", fg = "#99d9ea", command = self.Give_Tip)
-        self.button7.pack()
         self.delete_buttons()
+        self.button7 = tk.Button(root, text ="Generate Tip", fg = "#99d9ea", command = self.Give_Tip)
+        self.button7.config( height = 2, width=10)
+        self.button7.pack()
+    
         self.selected_option = tk.StringVar()
         random_texts = random.choice(FPSTips)
         self.selected_option.set(random_texts)
-        self.label = tk.Label(root, textvariable = self.selected_option)
-        self.label.pack(pady =20)
-
+        frame = tk.Frame(root)
+        frame.config(bg='#3159a3')
+        frame.pack()
+        self.label = tk.Label(frame, textvariable = self.selected_option)
+        self.label.pack(pady =0, fill=tk.BOTH,expand=True)
         photo = self.Insert_Image()
-        self.TipImage = tk.Label(root)
+        self.TipImage = tk.Label(frame)
         self.TipImage.config(image=photo)
         self.TipImage.image = photo
         self.TipImage.pack()
-        
-        
+        self.button8 = tk.Button(frame, text = "Return", fg = "#99d9ea",command = self.first_page)
+        self.button8.pack()
     def button_press(self):
         self.button1.destroy
         self.button2.destroy
