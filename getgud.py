@@ -29,10 +29,11 @@ class GetGud:
     def __init__(self,root):
         self.root = root
         self.root.title("Get Gud") 
-        self.root.geometry("420x250")
+        self.root.geometry("440x290")
         root.config(bg='#3159a3')
         self.genre = ""
         self.first_page()
+        self.favorites = []
 
 
     def delete_buttons(self):
@@ -48,6 +49,8 @@ class GetGud:
         self.label = tk.Label(root, text = "Choose your game category",
         font = ("Calibri 24"), bg ='#dcecfa', fg = '#7092be' )
         self.label.pack(pady =20)
+        # self.Favorite_Button
+        
 
         self.button1 = tk.Button(root, text ="FPS", fg = "#99d9ea", command = self.Generate_FPS_tip)
         self.button2 = tk.Button(root, text ="Stealth", fg = "#99d9ea", command = self.Generate_Stealth_Tip)
@@ -55,20 +58,22 @@ class GetGud:
         self.button4 = tk.Button(root, text ="MOBA", fg = "#99d9ea", command = self.Generate_MOBA_Tip)
         self.button5 = tk.Button(root, text ="Survival", fg = "#99d9ea", command = self.Generate_Survival_Tip)
         self.button6 = tk.Button(root, text ="Driving", fg = "#99d9ea", command = self.Generate_Driving_Tip)
-        
+        self.button9 = tk.Button(root,text = "Favorites",fg = "#99d9ea", command = self.Favorite_Page)
+
         self.button1.pack()
         self.button2.pack()
         self.button3.pack()
         self.button4.pack()
         self.button5.pack()
         self.button6.pack()
+        self.button9.pack()
 
     def second_page(self):
         self.delete_buttons()
         self.button7 = tk.Button(root, text ="Generate Tip", fg = "#99d9ea", command = self.Give_Tip)
         self.button7.config( height = 2, width=10)
         self.button7.pack()
-    
+        self.button10 = tk.Button(root, text = "Favorite Tip", fg = "#99d9ea", command = self.Favorite_Button)
         self.selected_option = tk.StringVar()
         random_texts = random.choice(FPSTips)
         self.selected_option.set(random_texts)
@@ -84,6 +89,29 @@ class GetGud:
         self.TipImage.pack()
         self.button8 = tk.Button(frame, text = "Return", fg = "#99d9ea",command = self.first_page)
         self.button8.pack()
+        self.button10 = tk.Button(frame, text = "Favorite Tip", fg = "#99d9ea", command = self.Favorite_Button)
+        self.button10.pack()
+    
+    def Favorite_Button(self):
+        self.favorites.append(self.selected_option.get())
+        print(self.favorites)
+        
+    
+    def Favorite_Page(self):
+        self.delete_buttons()
+        self.button8 = tk.Button(root, text = "Return", fg = "#99d9ea",command = self.first_page)
+        self.button8.pack()
+        for element in self.favorites:
+            print(element)
+            self.label = tk.Label(text =element)
+            self.label.pack(pady =0, expand=True)
+        
+
+    
+    
+    
+    
+    
     def button_press(self):
         self.button1.destroy
         self.button2.destroy
